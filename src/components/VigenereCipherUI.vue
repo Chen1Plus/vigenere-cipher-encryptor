@@ -38,26 +38,24 @@ function copyOutput() {
 
 <template>
   <div class="container" style="max-width: 768px">
-    <div class="justify-content-end align-items-center mb-1 mb-md-3">
-      <div class="card">
-        <div class="row align-items-center">
-          <div class="col">
-            <div class="card-body">
-              <span v-if="output">{{ output }}</span>
-              <span v-else>Output will be displayed here.</span>
-            </div>
+    <div class="card mb-1 mb-md-3">
+      <div class="row g-0 justify-content-end align-items-center">
+        <div class="col">
+          <div class="card-body">
+            <span v-if="output">{{ output }}</span>
+            <span v-else>Output will be displayed here.</span>
           </div>
-          <div class="col-auto me-2 me-md-3" v-if="output">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              @click="copyOutput"
-              :disabled="copied"
-            >
-              <span v-if="copied">Copied!</span>
-              <span v-else>Copy</span>
-            </button>
-          </div>
+        </div>
+        <div class="col-auto me-2 me-md-3" v-if="output">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            @click="copyOutput"
+            :disabled="copied"
+          >
+            <span v-if="copied">Copied!</span>
+            <span v-else>Copy</span>
+          </button>
         </div>
       </div>
     </div>
