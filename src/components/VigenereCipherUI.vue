@@ -38,15 +38,13 @@ function copyOutput() {
 
 <template>
   <div class="container" style="max-width: 768px">
-    <div class="card mb-1 mb-md-3">
-      <div class="row g-0 justify-content-end align-items-center">
-        <div class="col">
-          <div class="card-body">
-            <span v-if="output">{{ output }}</span>
-            <span v-else>Output will be displayed here.</span>
-          </div>
+    <div class="card mb-1 mb-md-3 p-2 p-md-3">
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="flex-shrink-1 me-2 me-md-3" style="word-break: break-word">
+          <span v-if="output">{{ output }}</span>
+          <span v-else>Output will be displayed here.</span>
         </div>
-        <div class="col-auto me-2 me-md-3" v-if="output">
+        <div v-if="output">
           <button
             type="button"
             class="btn btn-secondary"
