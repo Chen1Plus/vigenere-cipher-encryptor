@@ -1,38 +1,41 @@
-const ACode = "A".charCodeAt(0);
-const aCode = "a".charCodeAt(0);
-const ZCode = "Z".charCodeAt(0);
-const zCode = "z".charCodeAt(0);
+const aCode = 97;
+const zCode = 122;
 
-function charCapital(msgCode: number) {
-  if (msgCode >= ACode && msgCode <= ZCode) {
+function charCapital(char: String) {
+  if (char.match(/[A-Z]/)) {
     return true;
-  } else if (msgCode >= aCode && msgCode <= zCode) {
+  } else if (char.match(/[a-z]/)) {
     return false;
   } else {
     return null;
   }
 }
 
+function codeToString(code: number, capital: boolean = false) {
+  let tempStr = String.fromCharCode(code);
+  capital && (tempStr = tempStr.toUpperCase());
+  return tempStr;
+}
+
 function encrypt(key: String, message: String) {
   const keyLength = key.length;
   let encryptedMessage = "";
 
-  for (let i = 0, len = message.length; i < len; i++) {
-    const messageCode = message.charCodeAt(i);
-    const Capital = charCapital(messageCode);
+  let i = 0;
+  for (let char of message) {
+    const capital = charCapital(char);
 
-    if (Capital === null) {
-      encryptedMessage += message[i];
+    if (capital === null) {
+      encryptedMessage += char;
     } else {
       let encryptedCode =
-        messageCode +
+        char.toLowerCase().charCodeAt(0) +
         key.charCodeAt(i % keyLength) -
-        (Capital ? ACode + 32 : aCode);
-      if (encryptedCode > (Capital ? ZCode : zCode)) {
-        encryptedCode -= 26;
-      }
+        aCode;
+      encryptedCode > zCode && (encryptedCode -= 26);
 
-      encryptedMessage += String.fromCharCode(encryptedCode);
+      encryptedMessage += codeToString(encryptedCode, capital);
+      i++;
     }
   }
 
@@ -43,22 +46,21 @@ function decrypt(key: String, encryptedMessage: String) {
   const keyLength = key.length;
   let decryptedMessage = "";
 
-  for (let i = 0, len = encryptedMessage.length; i < len; i++) {
-    const encryptedCode = encryptedMessage.charCodeAt(i);
-    const Capital = charCapital(encryptedCode);
+  let i = 0;
+  for (let char of encryptedMessage) {
+    const capital = charCapital(char);
 
-    if (Capital === null) {
-      decryptedMessage += encryptedMessage[i];
+    if (capital === null) {
+      decryptedMessage += char;
     } else {
       let decryptedCode =
-        encryptedCode -
+        char.toLowerCase().charCodeAt(0) -
         key.charCodeAt(i % keyLength) +
-        (Capital ? ACode + 32 : aCode);
-      if (decryptedCode < (Capital ? ACode : aCode)) {
-        decryptedCode += 26;
-      }
+        aCode;
+      decryptedCode < aCode && (decryptedCode += 26);
 
-      decryptedMessage += String.fromCharCode(decryptedCode);
+      decryptedMessage += codeToString(decryptedCode, capital);
+      i++;
     }
   }
 

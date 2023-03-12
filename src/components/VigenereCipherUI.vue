@@ -14,18 +14,19 @@ const output = ref("");
 const copied = ref(false);
 
 function encryptRequest() {
+  const key = toPureText(input.key).toLowerCase();
+
   if (input.methodE) {
-    let inputText = input.message;
-    if (input.strict) {
-      if (input.capital) {
-        inputText = toPureText(input.message, true);
-      } else {
-        inputText = toPureText(input.message);
-      }
-    }
-    output.value = vigenereCipher.encrypt(toPureText(input.key), inputText);
+    output.value = vigenereCipher.encrypt(
+      key,
+      input.strict
+        ? input.capital
+          ? toPureText(input.message).toUpperCase()
+          : toPureText(input.message).toLowerCase()
+        : input.message
+    );
   } else {
-    output.value = vigenereCipher.decrypt(toPureText(input.key), input.message);
+    output.value = vigenereCipher.decrypt(key, input.message);
   }
   copied.value = false;
   input.message = "";
