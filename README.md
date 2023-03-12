@@ -10,6 +10,8 @@ The Vigenère cipher is a method of encrypting alphabetic text by using a series
 
 This method had even been described as "impossible of translation". Although there are several cryptanalysis methods now, it could still be safe if you use a long keyword to encrypt short messages.
 
+Read [Wikipedia](https://en.wikipedia.org/wiki/Vigen%C3%A8re_cipher) for details.
+
 ## Usage
 
 There are a few optional settings for encryption:
